@@ -1,2 +1,4 @@
 /node_modules
 package-lock.json
+/config/config.keys.dev.js
+/config/passport.dev.js
