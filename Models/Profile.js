@@ -29,8 +29,7 @@ const ProfileSchema = new Schema({
         required: true
     },
     bio: {
-        type: String,
-        required: true
+        type: String
     },
     githubUserName: {
         type: String
@@ -60,7 +59,7 @@ const ProfileSchema = new Schema({
                 default: false
             },
             description: {
-                type: Boolean
+                type: String
             }
         }
     ],
@@ -90,7 +89,7 @@ const ProfileSchema = new Schema({
                 default: false
             },
             description: {
-                type: Boolean
+                type: String
             }
         }
     ],
