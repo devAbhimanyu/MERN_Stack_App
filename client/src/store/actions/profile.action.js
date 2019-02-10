@@ -45,6 +45,29 @@ export const createProfile = (profileData, history) => {
     }
 }
 
+//deletes accpunt
+export const deleteAccount = () => {
+    return dispatch => {
+        if (window.confirm('Are you sure you want to delete your account')) {
+            axios.delete('/api/profile')
+                .then(res => {
+                    dispatch(setCurrentUser({}));
+                })
+                .catch(err => {
+                    dispatch(setError(err.response.data))
+                })
+        }
+
+    }
+}
+
+export const setCurrentUser = (userData) => {
+    return {
+        type: actionTypes.SET_CURRENT_USER,
+        payload: userData
+    }
+}
+
 //setting profile in loading state
 export const setProfileLoading = () => {
     return {

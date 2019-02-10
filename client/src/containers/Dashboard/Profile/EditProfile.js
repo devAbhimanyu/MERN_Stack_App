@@ -6,7 +6,9 @@ import TextArea from '../../../components/UI/Input/TextArea';
 import SelectList from '../../../components/UI/Input/SelectList';
 import InputWithIcon from '../../../components/UI/Input/InputWithIcon';
 import TextInput from '../../../components/UI/Input/TextInput';
-import { createProfile } from '../../../store/actions/profile.action'
+import { createProfile, getCurrentProfile } from '../../../store/actions/profile.action';
+import isEmpty from '../../../validations/is-empty';
+
 class CreateProfile extends Component {
     constructor(props) {
         super();
@@ -29,9 +31,55 @@ class CreateProfile extends Component {
         };
     }
 
+    componentDidMount() {
+        this.props.getUserProfile();
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.errorsRed) {
             this.setState({ errors: nextProps.errorsRed })
+        }
+        if (nextProps.profileRed.profile) {
+            const profile = nextProps.profileRed.profile;
+            const skillsCSV = profile.skills.join(',');
+            profile.company = !isEmpty(profile.company) ? profile.company : '';
+            profile.website = !isEmpty(profile.website) ? profile.website : '';
+            profile.location = !isEmpty(profile.location) ? profile.location : '';
+            profile.githubUserName = !isEmpty(profile.githubUserName)
+                ? profile.githubUserName
+                : '';
+            profile.bio = !isEmpty(profile.bio) ? profile.bio : '';
+            profile.social = !isEmpty(profile.social) ? profile.social : {};
+            profile.twitter = !isEmpty(profile.social.twitter)
+                ? profile.social.twitter
+                : '';
+            profile.facebook = !isEmpty(profile.social.facebook)
+                ? profile.social.facebook
+                : '';
+            profile.linkedin = !isEmpty(profile.social.linkedin)
+                ? profile.social.linkedin
+                : '';
+            profile.youtube = !isEmpty(profile.social.youtube)
+                ? profile.social.youtube
+                : '';
+            profile.instagram = !isEmpty(profile.social.instagram)
+                ? profile.social.instagram
+                : '';
+
+            this.setState({
+                handle: profile.handle,
+                company: profile.company,
+                website: profile.website,
+                location: profile.location,
+                status: profile.status,
+                skills: skillsCSV,
+                githubUserName: profile.githubUserName,
+                bio: profile.bio,
+                twitter: profile.twitter,
+                facebook: profile.facebook,
+                linkedin: profile.linkedin,
+                youtube: profile.youtube
+            });
         }
     }
 
@@ -137,10 +185,7 @@ class CreateProfile extends Component {
                 <div className='container'>
                     <div className='row'>
                         <div className='col-md-8 m-auto'>
-                            <h1 className='display-4 text-center'>Create Your Profile</h1>
-                            <p className='lead text-center'>
-                                Let's get some information, to bettter know you</p>
-                            <small className='d-block pb-3'>* required fields</small>
+                            <h1 className='display-4 text-center'>Edit Your Profile</h1>
                             <form onSubmit={this.onSubmitHandle}>
                                 <TextInput
                                     name='handle'
@@ -235,7 +280,8 @@ class CreateProfile extends Component {
 CreateProfile.proptype = {
     profileRed: Proptypes.object.isRequired,
     errorsRed: Proptypes.object.isRequired,
-    createNewProfile: Proptypes.func.isRequired
+    createNewProfile: Proptypes.func.isRequired,
+    getUserProfile: Proptypes.func.isRequired
 }
 
 const mapStateToProps = state => {
@@ -247,7 +293,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        createNewProfile: (profileData, history) => dispatch(createProfile(profileData, history))
+        createNewProfile: (profileData, history) => dispatch(createProfile(profileData, history)),
+        getUserProfile: () => dispatch(getCurrentProfile())
     }
 }
 

@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrentProfile } from '../../store/actions/profile.action';
+import { getCurrentProfile, deleteAccount } from '../../store/actions/profile.action';
 import ModalScreen from '../../components/UI/Modal/Modal';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import ProfileModifier from '../../components/Profile/ProfileModifier';
 
 class Dashboard extends Component {
     componentDidMount() {
         this.props.getProfile();
+    }
+
+    onDeleteHandler = () => {
+        this.props.deleteUserAccount();
     }
 
     render() {
@@ -22,7 +27,14 @@ class Dashboard extends Component {
         } else {
             //check whether a profile exists or not
             if (Object.keys(profile).length > 0) {
-                dashboardView = <h2>Profile Area</h2>
+                dashboardView = <div className="lead text-muted">
+                    <p className="lead text-muted">
+                        Welcome <Link to={`/profile/${user.name}`}>{user.name}</Link>
+                    </p>
+                    <ProfileModifier />
+                    <div style={{ marginBottom: '60px' }}></div>
+                    <button className="btn btn-danger" onClick={this.onDeleteHandler}>Delete Account</button>
+                </div>
             } else {
                 //create profile
                 dashboardView = (
@@ -55,6 +67,7 @@ class Dashboard extends Component {
 
 Dashboard.proptype = {
     getProfile: Proptypes.func.isRequired,
+    deleteUserAccount: Proptypes.func.isRequired,
     authRed: Proptypes.object.isRequired,
     profileRed: Proptypes.object.isRequired
 }
@@ -69,7 +82,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getProfile: () => dispatch(getCurrentProfile())
+        getProfile: () => dispatch(getCurrentProfile()),
+        deleteUserAccount: () => dispatch(deleteAccount())
     }
 }
 

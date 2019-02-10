@@ -1,8 +1,7 @@
 import React from 'react';
-import classes from './BackDrop.css';
 
 const backDrop = (props) => (
-    props.show ? <div className='CustomBackDrop' onClick={props.bdClicked}>
+    props.show ? <div className='CustomBackDrop'>
         {props.children}
     </div> : null
 )

@@ -13,7 +13,7 @@ class Modal extends Component {
     render() {
         return (
             <React.Fragment>
-                <BackDrop show={this.props.show} bdClicked={this.props.closeModal} />
+                <BackDrop show={this.props.show} />
                 <div className='CustomModal'
                     style={{
                         transform: this.props.show ? 'translateY(0)' : 'translateY(-100vh)',
