@@ -10,7 +10,11 @@ To better optimize the application loading times, React.Lazy has been implemente
 
 ---
 Future updates:
+
+---
 Option to leave posts and comment on user profile will be added.
+
+--
 The react version will be updated, and hooks will be implemted to reduce component state dependency.
 Messaging feature will be added for the users to interact with each other.
 
