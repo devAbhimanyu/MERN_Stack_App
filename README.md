@@ -19,6 +19,7 @@ Messaging feature will be added for the users to interact with each other.
 
 ---
 Folder Structure:
+
 The client folder is the front-end application:
 
   *components are statesless functional components
