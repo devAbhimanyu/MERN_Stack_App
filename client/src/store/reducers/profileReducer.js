@@ -34,7 +34,7 @@ const profileReducer = (state = initialState, action) => {
                 loading: false
             });
         case actionTypes.GET_ALL_PROFILES:
-            return getAllProfiles(state, {});
+            return getAllProfiles(state, { allProfiles: action.payload, loading: false });
         case actionTypes.PROFILE_NOT_FOUND:
             return profileNotFound(state, {});
         case actionTypes.CLEAR_CURRENT_PROFILE:

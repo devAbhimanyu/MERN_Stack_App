@@ -9,7 +9,7 @@ import TextInput from '../../../components/UI/Input/TextInput';
 import { createProfile, getCurrentProfile } from '../../../store/actions/profile.action';
 import isEmpty from '../../../validations/is-empty';
 
-class CreateProfile extends Component {
+class EditProfile extends Component {
     constructor(props) {
         super();
         this.state = {
@@ -110,8 +110,8 @@ class CreateProfile extends Component {
     }
 
     toggleSocialInputStateHandler = () => {
-        this.setState(pervState => {
-            return { displaySocialInputs: !pervState.displaySocialInputs }
+        this.setState(prevState => {
+            return { displaySocialInputs: !prevState.displaySocialInputs }
         })
     }
 
@@ -277,7 +277,7 @@ class CreateProfile extends Component {
     }
 }
 
-CreateProfile.proptype = {
+EditProfile.proptype = {
     profileRed: Proptypes.object.isRequired,
     errorsRed: Proptypes.object.isRequired,
     createNewProfile: Proptypes.func.isRequired,
@@ -298,4 +298,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CreateProfile));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(EditProfile));

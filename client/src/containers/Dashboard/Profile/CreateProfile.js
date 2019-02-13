@@ -62,8 +62,8 @@ class CreateProfile extends Component {
     }
 
     toggleSocialInputStateHandler = () => {
-        this.setState(pervState => {
-            return { displaySocialInputs: !pervState.displaySocialInputs }
+        this.setState(prevState => {
+            return { displaySocialInputs: !prevState.displaySocialInputs }
         })
     }
 

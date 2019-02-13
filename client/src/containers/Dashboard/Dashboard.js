@@ -6,6 +6,8 @@ import { getCurrentProfile, deleteAccount } from '../../store/actions/profile.ac
 import ModalScreen from '../../components/UI/Modal/Modal';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import ProfileModifier from '../../components/Profile/ProfileModifier';
+import Experience from './Experience/Experience';
+import Education from './Education/Education';
 
 class Dashboard extends Component {
     componentDidMount() {
@@ -23,7 +25,7 @@ class Dashboard extends Component {
         let dashboardView = null;
 
         if (profile === null || loading) {
-            dashboardView = <ModalScreen show={true}><Spinner /></ModalScreen>
+            dashboardView = <ModalScreen show={true}><Spinner message='Loading' /></ModalScreen>
         } else {
             //check whether a profile exists or not
             if (Object.keys(profile).length > 0) {
@@ -32,6 +34,8 @@ class Dashboard extends Component {
                         Welcome <Link to={`/profile/${user.name}`}>{user.name}</Link>
                     </p>
                     <ProfileModifier />
+                    <Experience experience={profile.experience} inProgress={loading} />
+                    <Education education={profile.education} inProgress={loading} />
                     <div style={{ marginBottom: '60px' }}></div>
                     <button className="btn btn-danger" onClick={this.onDeleteHandler}>Delete Account</button>
                 </div>

@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Proptypes from 'prop-types';
 
-const PrivateRoute = ({ component: Component, authRed, ...rest }) => {
+const PrivateRoute = ({ component: Component, isLazy, authRed, ...rest }) => {
     return (
         <Route
             {...rest}
-            render={props => (
-                authRed.isAuthenticated === true ? (
-                    <Component {...props} />
-                ) : (<Redirect to='/login' />)
-            )
-
-            }
+            render={props => {
+                if (authRed.isAuthenticated) {
+                    if (isLazy) {
+                        return <Suspense fallback={<div>Loading...</div>}><Component /></Suspense>;
+                    } else {
+                        return <Component {...props} />;
+                    }
+                } else {
+                    return <Redirect to='/login' />;
+                }
+            }}
         />
     )
 }

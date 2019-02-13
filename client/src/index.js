@@ -11,7 +11,7 @@ import store from './store/store'
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename='devConnect'>
             <App />
         </BrowserRouter>
     </Provider>, document.getElementById('root'));

@@ -8,7 +8,6 @@ const setError = (error) => {
         errorPayload: error
     }
 }
-//export const =()=>{}
 
 const getProfile = (payload) => {
     return {
@@ -17,6 +16,13 @@ const getProfile = (payload) => {
     }
 }
 
+const getProfiles = (payload) => {
+    return {
+        type: actionTypes.GET_ALL_PROFILES,
+        payload: payload
+    }
+}
+//get current user profile
 export const getCurrentProfile = () => {
     return dispatch => {
         dispatch(setProfileLoading());
@@ -26,6 +32,33 @@ export const getCurrentProfile = () => {
             })
             .catch(err => {
                 dispatch(getProfile({}))
+            })
+    }
+}
+//gets all profiles
+export const getAllProfiles = () => {
+    return dispatch => {
+        dispatch(setProfileLoading());
+        axios.get('/api/profile/all')
+            .then(res => {
+                dispatch(getProfiles(res.data));
+            })
+            .catch(err => {
+                dispatch(getProfiles(null))
+            })
+    }
+}
+
+//get profile by user handle
+export const getProfileFromUserHandle = (handle) => {
+    return dispatch => {
+        dispatch(setProfileLoading());
+        axios.get(`/api/profile/handle/${handle}`)
+            .then(res => {
+                dispatch(getProfile(res.data));
+            })
+            .catch(err => {
+                dispatch(getProfile(null))
             })
     }
 }
@@ -45,7 +78,33 @@ export const createProfile = (profileData, history) => {
     }
 }
 
-//deletes accpunt
+//add experience
+export const addExperience = (expData, history) => {
+    return dispatch => {
+        axios.post('/api/profile/experience', expData)
+            .then(res => {
+                history.push('/dashboard');
+            })
+            .catch(err => {
+                dispatch(setError(err.response.data))
+            })
+    }
+}
+
+//add education
+export const addEducation = (eduData, history) => {
+    return dispatch => {
+        axios.post('/api/profile/education', eduData)
+            .then(res => {
+                history.push('/dashboard');
+            })
+            .catch(err => {
+                dispatch(setError(err.response.data))
+            })
+    }
+}
+
+//deletes account
 export const deleteAccount = () => {
     return dispatch => {
         if (window.confirm('Are you sure you want to delete your account')) {
@@ -58,6 +117,32 @@ export const deleteAccount = () => {
                 })
         }
 
+    }
+}
+//deletes experience
+export const deleteExperience = (id) => {
+    return dispatch => {
+        dispatch(setProfileLoading());
+        axios.delete(`/api/profile/experience/${id}`)
+            .then(res => {
+                dispatch(getProfile(res.data));
+            })
+            .catch(err => {
+                dispatch(setError(err.response.data))
+            })
+    }
+}
+
+//deletes education
+export const deleteEducation = (id) => {
+    return dispatch => {
+        axios.delete(`/api/profile/education/${id}`)
+            .then(res => {
+                dispatch(getProfile(res.data));
+            })
+            .catch(err => {
+                dispatch(setError(err.response.data))
+            })
     }
 }
 
