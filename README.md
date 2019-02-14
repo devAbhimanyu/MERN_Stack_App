@@ -19,7 +19,7 @@ npm run client will run client application
 
 npm run server will host the node server for the backend application
 
-npm run dev will run both the server and client and server
+npm run dev will run both the server and client
 
 ---
 # Future updates:
