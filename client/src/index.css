@@ -8,6 +8,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+html, body {
+  height: 100%;
+}
+.fill-height {
+  min-height: 100%;
+  height:auto !important; /* cross-browser */
+  height: 100%; /* cross-browser */
+}
+#id{
+  height: 100%;
+}
+.App{
+  height: 100%
+}
+footer{
+  /* position: fixed; */
+  bottom: 0;
+  width: 100%;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
