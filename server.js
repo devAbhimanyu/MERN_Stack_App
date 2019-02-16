@@ -11,7 +11,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //db config
-const dbConnStr = require('./config/config.keys.dev').mongoURI;
+const dbConnStr = require('./config/keys').mongoURI;
 console.log(dbConnStr);
 //connecting to db;
 mongoose

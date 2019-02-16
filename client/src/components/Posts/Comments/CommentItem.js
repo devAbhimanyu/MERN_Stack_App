@@ -23,7 +23,7 @@ const CommentItem = (props) => {
                     <p className="lead">{comment.text}</p>
                     {comment.user === authRed.user.id ? (
                         <button
-                            onClick={() => this.props.delegateFunction(postId, comment._id)}
+                            onClick={() => props.delegateFunction(postId, comment._id)}
                             type="button"
                             className="btn btn-danger mr-1"
                         >
