@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const passport = require('passport');
 const jwToken = require('jsonwebtoken');
-const tKey = require('../../config/config.keys.dev').tokenKey;
+const tKey = require('../../config/keys').tokenKey;
 const validRegInput = require('../../validations/register');
 const validateLoginInput = require('../../validations/login');
 //loading user model
