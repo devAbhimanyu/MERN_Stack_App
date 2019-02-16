@@ -1,4 +1,4 @@
 module.exports = {
-  mongoURI: "add your connection string here",
-  tokenKey: 'addTokenKey here'
+  mongoURI: process.env.MONGO_URI,
+  tokenKey: process.env.SECRET_OR_KEY
 };
